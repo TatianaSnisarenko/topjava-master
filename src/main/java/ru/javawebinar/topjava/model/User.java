@@ -77,6 +77,10 @@ public class User extends AbstractNamedEntity {
         return password;
     }
 
+    public String getName(){
+        return super.getName();
+    }
+
     @Override
     public String toString() {
         return "User (" +
