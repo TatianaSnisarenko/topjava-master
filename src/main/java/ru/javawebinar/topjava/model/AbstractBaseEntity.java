@@ -8,6 +8,10 @@ public abstract class AbstractBaseEntity {
     public AbstractBaseEntity() {
     }
 
+    public static int getStartSeq() {
+        return START_SEQ;
+    }
+
     protected AbstractBaseEntity(Integer id) {
         this.id = id;
     }
