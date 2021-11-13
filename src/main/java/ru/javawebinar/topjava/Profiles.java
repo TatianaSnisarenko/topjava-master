@@ -24,4 +24,14 @@ public class Profiles {
             throw new IllegalStateException("Could not find DB driver");
         }
     }
+
+    public static String getActiveORMProfile() {
+        if (ClassUtils.isPresent("org.postgresql.Driver", null)) {
+            return POSTGRES_DB;
+        } else if (ClassUtils.isPresent("org.hsqldb.jdbcDriver", null)) {
+            return HSQL_DB;
+        } else {
+            throw new IllegalStateException("Could not find DB driver");
+        }
+    }
 }

@@ -10,6 +10,7 @@ import ru.javawebinar.topjava.model.Meal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Transactional
     @Modifying
@@ -37,7 +38,7 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
             WHERE m.user.id=:userId
             ORDER BY m.dateTime DESC
             """)
-    List<Meal> getAllByUserAndAllSorted(@Param("userId") int userId);
+    List<Meal> getAll(@Param("userId") int userId);
 
     @Query("""
             SELECT m.user.id 
@@ -45,4 +46,14 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
             WHERE m.id=:id
             """)
     int getUserId(@Param("id") int id);
+
+    @Query("""
+            SELECT m 
+            FROM Meal m 
+            JOIN FETCH m.user 
+            WHERE m.id=:id 
+            AND m.user.id=:userId 
+            ORDER BY m.dateTime DESC
+            """)
+    Meal getWithUser(@Param("id") int id, @Param("userId") int userId);
 }
