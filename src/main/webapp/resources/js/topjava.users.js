@@ -1,5 +1,19 @@
 const userAjaxUrl = "admin/users/";
 
+function enable(chkbox, id) {
+    var enabled = chkbox.is(":checked");
+    $.ajax({
+        url: userAjaxUrl + id,
+        type: "POST",
+        data: "enabled=" + enabled
+    }).done(function () {
+        chkbox.closest("tr").attr("data-userEnabled", enabled);
+        successNoty(enabled ? "Enabled" : "Disabled");
+    }).fail(function () {
+        $(chkbox).prop("checked", !enabled);
+    });
+}
+
 // https://stackoverflow.com/a/5064235/548473
 const ctx = {
     ajaxUrl: userAjaxUrl,
