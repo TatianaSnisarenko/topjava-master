@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.to.UserTo;
 
 import java.util.List;
 
@@ -34,10 +34,8 @@ public class AdminUIController extends AbstractUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void create(@RequestParam String name,
-                       @RequestParam String email,
-                       @RequestParam String password) {
-        super.create(new User(null, name, email, password, Role.USER));
+    public void create(UserTo userTo) {
+        super.create(userTo);
     }
 
     @Override
